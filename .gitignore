@@ -20,3 +20,6 @@
 
 # Allow gems to be installed via "bundle install --path=vendor"
 /vendor/ruby
+
+# RubyMine files
+/.idea

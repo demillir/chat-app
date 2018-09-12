@@ -17,3 +17,6 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# Allow gems to be installed via "bundle install --path=vendor"
+/vendor/ruby

@@ -3,5 +3,6 @@ Rails.application.routes.draw do
 
   root 'users#index'
 
+  resources :chats, only: [:show]
   resources :users, only: [:new, :create, :index]
 end

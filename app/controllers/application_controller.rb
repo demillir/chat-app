@@ -18,6 +18,6 @@ class ApplicationController < ActionController::Base
     current_user_name = session[:user_name]
     return nil unless current_user_name.present?
 
-    ActiveUsers.instance.find {|user| user.name == current_user_name}
+    ActiveUserDB.instance.find {|user| user.name == current_user_name}
   end
 end

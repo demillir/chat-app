@@ -100,7 +100,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   describe "current_user" do
     before do
       # Start each test with an empty set of users.
-      ActiveUsers.instance.clear
+      ActiveUserDB.instance.clear
     end
 
     describe "not yet signed in" do

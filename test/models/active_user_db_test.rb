@@ -1,7 +1,7 @@
 require 'test_helper'
 
-describe ActiveUsers do
-  subject { ActiveUsers.instance }
+describe ActiveUserDB do
+  subject { ActiveUserDB.instance }
 
   before do
     # Start each test with an empty set.

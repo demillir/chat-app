@@ -2,7 +2,7 @@
 # It stores the set of +User+ objects in Redis, so all running instances of this application
 # see the same set.
 
-class ActiveUsers
+class ActiveUserDB
   include Singleton
   include Enumerable
 

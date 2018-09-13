@@ -10,7 +10,7 @@ class ChatsControllerTest < ActionDispatch::IntegrationTest
     let(:partner)      { User.new(name: partner_name) }
 
     before do
-      ActiveUserDB.instance << partner
+      ActiveUserDB.instance[partner.name] = partner
     end
 
     it 'gets show' do

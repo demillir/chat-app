@@ -74,6 +74,7 @@ GEM
       activesupport (>= 4.2.0)
     i18n (1.1.0)
       concurrent-ruby (~> 1.0)
+    interactor (3.1.1)
     io-like (0.3.0)
     json (2.1.0)
     loofah (2.2.2)
@@ -199,6 +200,7 @@ DEPENDENCIES
   byebug
   capybara (>= 2.15)
   chromedriver-helper
+  interactor
   minitest-rails
   puma (~> 3.11)
   rails (~> 5.2.1)

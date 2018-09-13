@@ -20,6 +20,7 @@ gem 'redis', '~> 4.0'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
+gem "interactor"           # for better business-logic service classes
 gem "minitest-rails"
 gem 'semantic-ui-sass'
 gem "slim-rails"

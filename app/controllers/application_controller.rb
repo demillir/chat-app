@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :require_sign_in
+  before_action :remember_user
 
   def current_user
     @_current_user ||= find_current_user
@@ -19,5 +20,10 @@ class ApplicationController < ActionController::Base
     return nil unless current_user_name.present?
 
     ActiveUserDB.instance[current_user_name]
+  end
+
+  def remember_user
+    # Communicate the current user to ApplicationCable::Connection via a cookie.
+    cookies.signed[:user_name] = current_user&.name
   end
 end

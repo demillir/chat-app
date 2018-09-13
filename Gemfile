@@ -21,6 +21,7 @@ gem 'redis', '~> 4.0'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 gem "interactor"           # for better business-logic service classes
+gem "jquery-rails"
 gem "minitest-rails"
 gem 'semantic-ui-sass'
 gem "slim-rails"

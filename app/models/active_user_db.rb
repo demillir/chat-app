@@ -1,6 +1,8 @@
 # This singleton class represents the set of all the +User+ objects for signed-in users.
 # It stores the set of +User+ objects in Redis, so all running instances of this application
 # see the same set.
+#
+# Client code accesses the set with a +Hash+-like interface; the set elements are keyed by the +User+ name.
 
 class ActiveUserDB
   include Singleton
@@ -16,6 +18,10 @@ class ActiveUserDB
 
   def delete(obj)
     $redis.srem @redis_key, Marshal.dump(obj)
+  end
+
+  def [](key)
+    find { |user| user.name == key }
   end
 
   def each

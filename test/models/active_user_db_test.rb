@@ -40,6 +40,28 @@ describe ActiveUserDB do
     end
   end
 
+  describe "[]" do
+    describe "an empty set" do
+      it "returns nil" do
+        expect(subject['some key']).must_be_nil
+      end
+    end
+
+    describe "a non-empty set" do
+      before do
+        subject << User.new(name: 'foo1')
+        subject << User.new(name: 'foo2')
+      end
+
+      it "does not yield anything" do
+        expect(subject['foo1']&.name).must_equal 'foo1'
+        expect(subject['foo2']&.name).must_equal 'foo2'
+        expect(subject['foo3']&.name).must_be_nil
+      end
+    end
+
+  end
+
   describe "each" do
     describe "an empty set" do
       it "does not yield anything" do

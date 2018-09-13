@@ -20,6 +20,9 @@ require "minitest/rails"
 # Uncomment for awesome colorful output
 # require "minitest/pride"
 
+require 'active_support/testing/assertions'
+include ActiveSupport::Testing::Assertions
+
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   # fixtures :all

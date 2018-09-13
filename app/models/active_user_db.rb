@@ -9,26 +9,29 @@ class ActiveUserDB
   include Enumerable
 
   def initialize
-    @redis_key = "#{self.class.name}:#{Rails.env}"
+    @redis_key = "#{self.class.name}:#{Rails.env}:hash"
   end
 
   def delete(key)
-    obj = self[key]
-    $redis.srem(@redis_key, Marshal.dump(obj)) ? obj : nil
+    self[key].tap {
+      $redis.hdel @redis_key, key
+    }
   end
 
   def [](key)
-    find { |name, user| name == key }&.second
+    dump = $redis.hget @redis_key, key
+    dump && Marshal.load(dump)
   end
 
   def []=(key, value)
-    $redis.sadd @redis_key, Marshal.dump(value)
+    $redis.hset @redis_key, key, Marshal.dump(value)
+    return value
   end
 
   def each
-    $redis.smembers(@redis_key)
-      .map {|dump| Marshal.load(dump)}
-      .each {|user| yield [user.name, user]}
+    $redis.hgetall(@redis_key)
+      .transform_values {|dump| Marshal.load(dump)}
+      .each {|pair| yield pair}
   end
 
   def clear

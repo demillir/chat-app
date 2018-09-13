@@ -1,0 +1,27 @@
+style type="text/css"
+  | body {
+      background-color: #DADADA;
+    }
+    body > .grid {
+      height: 100%;
+    }
+    .image {
+      margin-top: - 100 px;
+    }
+    .column {
+      max-width: 450px;
+    }
+
+.ui.middle.aligned.center.aligned.grid
+  .column
+    h2.ui.teal
+      | Welcome to Chat!
+    h3.ui.teal
+      | Please sign in, no password required
+    = form_with model: @user, class: 'ui form' do |f|
+      .ui.stacked
+        .field
+          .ui.left.icon.input
+            i.user.icon-bar
+            = f.text_field :name, placeholder: 'Your handle', required: true
+      = f.submit 'Start Chatting', class: 'ui fluid large teal submit button'

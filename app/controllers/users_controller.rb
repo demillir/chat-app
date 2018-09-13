@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   def index
     @chats = ActiveUserDB.instance
-               .reject {|name, user| name == current_user.name}
+               .reject {|name, user| name == current_user&.name}
                .map    {|name, user| Chat.new(initiator: current_user, partner: user)}
   end
 

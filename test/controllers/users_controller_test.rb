@@ -34,14 +34,47 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     let(:params)    { {user: {name: user_name}} }
 
     describe 'with valid params' do
+      let(:introduction_result) { Interactor::Context.build }
+
       it 'redirects to the user index page' do
         post users_url, params: params
         assert_redirected_to users_path
+      end
+
+      it 'introduces the user' do
+        mock = Minitest::Mock.new
+        mock.expect :call, introduction_result, [Hash]
+
+        IntroduceUser.stub :call, mock do
+          post users_url, params: params
+        end
+        assert_mock mock
+      end
+
+      describe 'a failed introduction' do
+        before do
+          introduction_result.fail!(message: 'The Introduction Failed!') rescue nil
+        end
+
+        it 'renders the sign-in page with a display of the errors' do
+          mock = Minitest::Mock.new
+          mock.expect :call, introduction_result, [Hash]
+
+          IntroduceUser.stub :call, mock do
+            post users_url, params: params
+          end
+          assert_mock mock
+
+          assert_response :success
+          assert_template :new
+          expect(response.body).must_match /The Introduction Failed/
+        end
       end
     end
 
     describe 'with invalid params' do
       let(:user_name) { nil }
+
       it 'renders the sign-in page with a display of the errors' do
         post users_url, params: params
         assert_response :success

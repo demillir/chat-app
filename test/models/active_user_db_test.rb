@@ -25,15 +25,15 @@ describe ActiveUserDB do
 
   describe "delete" do
     it "removes present users" do
-      subject << User.new(name: 'foo')
+      subject['foo'] = User.new(name: 'foo')
       expect {
         subject.delete User.new(name: 'foo')
       }.must_change "subject.count", -1
     end
 
     it "ignores unknown users" do
-      subject << User.new(name: 'foo1')
-      subject << User.new(name: 'foo2')
+      subject['foo1'] = User.new(name: 'foo1')
+      subject['foo2'] = User.new(name: 'foo2')
       expect {
         subject.delete User.new(name: 'foo')
       }.must_change "subject.count", 0
@@ -49,8 +49,8 @@ describe ActiveUserDB do
 
     describe "a non-empty set" do
       before do
-        subject << User.new(name: 'foo1')
-        subject << User.new(name: 'foo2')
+        subject['foo1'] = User.new(name: 'foo1')
+        subject['foo2'] = User.new(name: 'foo2')
       end
 
       it "does not yield anything" do
@@ -87,8 +87,8 @@ describe ActiveUserDB do
 
     describe "a non-empty set" do
       before do
-        subject << User.new(name: 'foo1')
-        subject << User.new(name: 'foo2')
+        subject['foo1'] = User.new(name: 'foo1')
+        subject['foo2'] = User.new(name: 'foo2')
       end
 
       it "does not yield anything" do

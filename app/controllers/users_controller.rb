@@ -17,7 +17,7 @@ class UsersController < ApplicationController
       result = IntroduceUser.call(user: @user)
 
       if result.success?
-        session[:user_name] = @user.name
+        cookies.signed[:user_name] = @user.name
         redirect_to users_path
       else
         flash.now[:error] = result.message

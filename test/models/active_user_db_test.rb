@@ -27,7 +27,7 @@ describe ActiveUserDB do
     it "removes present users" do
       subject['foo'] = User.new(name: 'foo')
       expect {
-        subject.delete User.new(name: 'foo')
+        expect(subject.delete('foo')).must_be_kind_of User
       }.must_change "subject.count", -1
     end
 
@@ -35,7 +35,7 @@ describe ActiveUserDB do
       subject['foo1'] = User.new(name: 'foo1')
       subject['foo2'] = User.new(name: 'foo2')
       expect {
-        subject.delete User.new(name: 'foo')
+        expect(subject.delete('foo')).must_be_nil
       }.must_change "subject.count", 0
     end
   end

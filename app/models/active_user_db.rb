@@ -16,8 +16,9 @@ class ActiveUserDB
     $redis.sadd @redis_key, Marshal.dump(obj)
   end
 
-  def delete(obj)
-    $redis.srem @redis_key, Marshal.dump(obj)
+  def delete(key)
+    obj = self[key]
+    $redis.srem(@redis_key, Marshal.dump(obj)) ? obj : nil
   end
 
   def [](key)

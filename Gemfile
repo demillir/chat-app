@@ -21,6 +21,7 @@ gem 'redis', '~> 4.0'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 gem "minitest-rails"
+gem 'semantic-ui-sass'
 gem "slim-rails"
 
 group :development, :test do

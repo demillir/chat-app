@@ -24,6 +24,9 @@
 # RubyMine files
 /.idea
 
+# SimpleCov coverage artifacts
+/coverage
+
 # In case anyone ever develops on a Mac
 .DS_Store
 ._.DS_Store

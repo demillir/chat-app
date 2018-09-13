@@ -1,3 +1,13 @@
+unless ENV['NOCOV']
+  require 'simplecov'
+  if ENV['CIRCLE_ARTIFACTS']
+    dir = File.join("..", "..", "..", ENV['CIRCLE_ARTIFACTS'], "coverage")
+    SimpleCov.coverage_dir(dir)
+  end
+  SimpleCov.minimum_coverage 100
+  SimpleCov.start
+end
+
 ENV["RAILS_ENV"] = "test"
 require File.expand_path("../../config/environment", __FILE__)
 require "rails/test_help"

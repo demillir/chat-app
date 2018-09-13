@@ -12,10 +12,6 @@ class ActiveUserDB
     @redis_key = "#{self.class.name}:#{Rails.env}"
   end
 
-  def <<(obj)
-    $redis.sadd @redis_key, Marshal.dump(obj)
-  end
-
   def delete(key)
     obj = self[key]
     $redis.srem(@redis_key, Marshal.dump(obj)) ? obj : nil

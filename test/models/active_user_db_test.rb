@@ -8,21 +8,6 @@ describe ActiveUserDB do
     subject.clear
   end
 
-  describe "<<" do
-    it "accepts new users" do
-      expect {
-        subject << User.new(name: 'foo')
-      }.must_change "subject.count"
-    end
-
-    it "ignores already-present users" do
-      subject << User.new(name: 'foo')
-      expect {
-        subject << User.new(name: 'foo')
-      }.must_change "subject.count", 0
-    end
-  end
-
   describe "delete" do
     it "removes present users" do
       subject['foo'] = User.new(name: 'foo')

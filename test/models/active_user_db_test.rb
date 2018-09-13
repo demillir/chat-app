@@ -81,6 +81,13 @@ describe ActiveUserDB do
         subject.each { i += 1}
         expect(i).must_equal 2
       end
+
+      it "yields key/value pairs" do
+        subject.each do |pair|
+          expect(pair).must_be_kind_of Array
+          expect(pair.size).must_equal 2
+        end
+      end
     end
   end
 end

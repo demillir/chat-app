@@ -18,7 +18,7 @@ class ActiveUserDB
   end
 
   def [](key)
-    find { |user| user.name == key }
+    find { |name, user| name == key }&.second
   end
 
   def []=(key, value)
@@ -28,7 +28,7 @@ class ActiveUserDB
   def each
     $redis.smembers(@redis_key)
       .map {|dump| Marshal.load(dump)}
-      .each {|user| yield user}
+      .each {|user| yield [user.name, user]}
   end
 
   def clear

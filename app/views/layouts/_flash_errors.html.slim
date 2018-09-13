@@ -1,3 +1,11 @@
+- if flash[:notice]
+  .ui.segment
+    .ui.comments
+      - Array.wrap(flash[:notice]).each do |msg|
+        .comment
+          .content
+            p #{msg}
+
 - if flash[:error]
   .ui.segment
     .ui.comments

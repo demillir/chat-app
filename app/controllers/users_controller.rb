@@ -2,6 +2,9 @@ class UsersController < ApplicationController
   skip_before_action :require_sign_in, only: [:new, :create]
 
   def index
+    @chats = ActiveUsers.instance
+               .reject {|user| user.name == current_user.name}
+               .map    {|user| Chat.new(initiator: current_user, partner: user)}
   end
 
   def new

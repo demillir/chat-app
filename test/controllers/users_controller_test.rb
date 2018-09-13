@@ -19,6 +19,19 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
         assert_response :success
         assert_template :index
       end
+
+      describe "with other users present" do
+        before do
+          IntroduceUser.call(user: User.new(name: "Other User 1"))
+          IntroduceUser.call(user: User.new(name: "Other User 2"))
+        end
+
+        it "renders the other users' names" do
+          get users_url
+          expect(response.body).must_include "Other User 1"
+          expect(response.body).must_include "Other User 2"
+        end
+      end
     end
   end
 

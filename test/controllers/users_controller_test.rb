@@ -83,4 +83,29 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       end
     end
   end
+
+  describe "current_user" do
+    before do
+      # Start each test with an empty set of users.
+      ActiveUsers.instance.clear
+    end
+
+    describe "not yet signed in" do
+      it "has no current user" do
+        get users_url
+        expect(controller.current_user).must_be_nil
+      end
+    end
+
+    describe "after sign-in" do
+      before do
+        sign_in
+      end
+
+      it "has a current user" do
+        get users_url
+        expect(controller.current_user).must_be_kind_of User
+      end
+    end
+  end
 end

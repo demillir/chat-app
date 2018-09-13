@@ -1,0 +1,9 @@
+- if flash[:error]
+  .ui.segment
+    .ui.comments
+      h5.ui.dividing.header
+        | Errors
+      - Array.wrap(flash[:error]).each do |msg|
+        .comment
+          .content
+            p #{msg}

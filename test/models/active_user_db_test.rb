@@ -59,7 +59,21 @@ describe ActiveUserDB do
         expect(subject['foo3']&.name).must_be_nil
       end
     end
+  end
 
+  describe "[]=" do
+    it "accepts new users" do
+      expect {
+        subject['foo'] = User.new(name: 'foo')
+      }.must_change "subject.count"
+    end
+
+    it "ignores already-present users" do
+      subject['foo'] = User.new(name: 'foo')
+      expect {
+        subject['foo'] = User.new(name: 'foo')
+      }.must_change "subject.count", 0
+    end
   end
 
   describe "each" do

@@ -24,6 +24,10 @@ class ActiveUserDB
     find { |user| user.name == key }
   end
 
+  def []=(key, value)
+    $redis.sadd @redis_key, Marshal.dump(value)
+  end
+
   def each
     $redis.smembers(@redis_key)
       .map {|dump| Marshal.load(dump)}

@@ -40,4 +40,5 @@ group :test do
   gem 'chromedriver-helper'
 
   gem 'rails-controller-testing'
+  gem 'simplecov', require: false
 end

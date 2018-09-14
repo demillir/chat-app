@@ -14,27 +14,54 @@ class ActiveUserDB
 
   def delete(key)
     self[key].tap {
-      $redis.hdel @redis_key, key
+      with_hash do |hash|
+        hash.delete(key)
+      end
     }
   end
 
   def [](key)
-    dump = $redis.hget @redis_key, key
-    dump && Marshal.load(dump)
+    dump = fetch_hash[key]
+    dump && decode(dump)
   end
 
   def []=(key, value)
-    $redis.hset @redis_key, key, Marshal.dump(value)
+    with_hash do |hash|
+      hash[key] = encode(value)
+    end
     return value
   end
 
   def each
-    $redis.hgetall(@redis_key)
-      .transform_values {|dump| Marshal.load(dump)}
+    fetch_hash
+      .transform_values {|dump| decode(dump)}
       .each {|pair| yield pair}
   end
 
   def clear
     $redis.del @redis_key
+  end
+
+  private
+
+  def with_hash
+    hash = fetch_hash
+    yield hash
+    $redis.set @redis_key, hash.to_json
+  end
+
+  def fetch_hash
+    json = $redis.get @redis_key
+    return {} unless json.present?
+
+    JSON.parse(json)
+  end
+
+  def encode(obj)
+    Base64.encode64(Marshal.dump(obj))
+  end
+
+  def decode(base64)
+    Marshal.load(Base64.decode64(base64))
   end
 end

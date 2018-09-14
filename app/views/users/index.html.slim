@@ -1,1 +1,5 @@
-= render collection: @chats, partial: 'chat'
+| Logged in as #{@current_user&.name}
+= debug @current_user
+
+#partners-list
+  = render collection: @chats, partial: 'chat'
